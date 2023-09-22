@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="./style/button.css" />
     <link rel="stylesheet" href="./style/records.css" />
     <link rel="stylesheet" href="./style/modal.css" />
-    <script src="./js/index.js" defer></script>
+    <script src="./js/index.js" defer type="module"></script>
     <title>CRUD</title>
   </head>
   <body>
@@ -35,7 +35,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <!-- <tr>
             <td>Maria</td>
             <td>maria@gmail.com</td>
             <td>(11) 97165-1111</td>
@@ -64,7 +64,7 @@
               <button type="button" class="button green">editar</button>
               <button type="button" class="button red">excluir</button>
             </td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
       <div class="modal" id="modal">
@@ -73,31 +73,39 @@
             <h2>Novo Cliente</h2>
             <span class="modal-close" id="modalClose">&#10006;</span>
           </header>
-          <form class="modal-form">
+          <form id="form" class="modal-form">
             <input
+              id="name"
+              required
               type="text"
               class="modal-field"
-              placeholder="Nome do Cliente"
+              placeholder="Nome do Cliente ex:Vinicius"
             />
             <input
+              id="email"
+              required
               type="email"
               class="modal-field"
-              placeholder="e-mail do Cliente"
+              placeholder="E-mail do Cliente ex:vinicius@gmail.com"
             />
             <input
+              id="phone"
+              required
               type="text"
               class="modal-field"
-              placeholder="Celular do Cliente"
+              placeholder="Celular do Cliente ex:(00) 0 0000-0000"
             />
             <input
+              id="city"
+              required
               type="text"
               class="modal-field"
-              placeholder="Cidade do Cliente"
+              placeholder="Cidade do Cliente ex:Minas Gerais-MG"
             />
           </form>
           <footer class="modal-footer">
-            <button class="button green">Salvar</button>
-            <button class="button blue">Cancelar</button>
+            <button id="saveClient" class="button green">Salvar</button>
+            <button id="calcelar" class="button blue">Cancelar</button>
           </footer>
         </div>
       </div>

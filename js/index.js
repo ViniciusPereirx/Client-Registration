@@ -1,35 +1,53 @@
 // "use strict";
+import { getLocalStorage, setLocalStorage } from "./db_client.js";
 
 const openModal = () =>
   document.getElementById("modal").classList.add("active");
 
-const closeModal = () =>
+const closeModal = () => {
+  clearFields();
   document.getElementById("modal").classList.remove("active");
+};
 
 const btnRegister = document.getElementById("cadastrarCliente");
 const btnCloseModal = document.getElementById("modalClose");
+const btnSaveClient = document.getElementById("saveClient");
 
-//Eventos
-btnRegister.addEventListener("click", openModal);
-btnCloseModal.addEventListener("click", closeModal);
+//Validando Inputs do Formulário
+const isValidFields = () => {
+  const form = document.getElementById("form");
 
-//Método LocalStorage
-const getLocalStorage = () => {
-  return JSON.parse(localStorage.getItem("db_client")) ?? []; //Lendo e convertendo db_client em JSON
+  return form.reportValidity();
 };
 
-const setLocalStorage = (dbClient) => {
-  return localStorage.setItem("db_client", JSON.stringify(dbClient)); //Adicionando no LocalStorage
+//Limpando Inputs do Formulário pelo valor da Classes
+const clearFields = () => {
+  const fields = document.querySelectorAll(".modal-field");
+  fields.forEach((field) => {
+    field.value = "";
+  });
+};
+
+//Interação com Usuário
+const saveClient = () => {
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
+  const city = document.getElementById("city").value;
+
+  if (isValidFields()) {
+    const client = {
+      name: name,
+      email: email,
+      phone: phone,
+      city: city,
+    };
+    createClient(client);
+    closeModal();
+  }
 };
 
 //CRUD - create, read, update e delete
-
-const tempClient = {
-  nome: "Vinicius",
-  email: "vinicius@gmail.com",
-  telefone: "35 997629493",
-  cidade: "Brasópolis",
-};
 
 //CREATE
 const createClient = (client) => {
@@ -56,3 +74,10 @@ const deleteClient = (id) => {
   dbClient.splice(id, 1);
   setLocalStorage(dbClient);
 };
+
+clientList(); //////////////////////////////////////////
+
+//Eventos
+btnRegister.addEventListener("click", openModal);
+btnCloseModal.addEventListener("click", closeModal);
+btnSaveClient.addEventListener("click", saveClient);
