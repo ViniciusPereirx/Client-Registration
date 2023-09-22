@@ -12,6 +12,8 @@ const closeModal = () => {
 const btnRegister = document.getElementById("cadastrarCliente");
 const btnCloseModal = document.getElementById("modalClose");
 const btnSaveClient = document.getElementById("saveClient");
+const btnCancelClient = document.getElementById("cancelClient");
+const btnUpdateClient = document.querySelector("#tableClient > tbody");
 
 //Validando Inputs do Formulário
 const isValidFields = () => {
@@ -42,8 +44,18 @@ const saveClient = () => {
       phone: phone,
       city: city,
     };
-    createClient(client);
-    closeModal();
+
+    const id = document.getElementById("name").dataset.id;
+
+    if (id === "new") {
+      createClient(client);
+      clientList();
+      closeModal();
+    } else {
+      updateClient(id, client);
+      clientList();
+      closeModal();
+    }
   }
 };
 
@@ -75,9 +87,84 @@ const deleteClient = (id) => {
   setLocalStorage(dbClient);
 };
 
-clientList(); //////////////////////////////////////////
+//Lista de Clientes
+const clientRow = (client, id) => {
+  const newRow = document.createElement("tr");
+  newRow.innerHTML = `
+  <td>${client.name}</td>
+  <td>${client.email}</td>
+  <td>${client.phone}</td>
+  <td>${client.city}</td>
+  <td>
+    <button type="button" class="button green" data-action="edit-${id}">Editar</button>
+    <button type="button" class="button red" data-action="delete-${id}">Excluir</button>
+  </td>`;
+
+  const tableClient = document.querySelector("#tableClient > tbody");
+
+  tableClient.appendChild(newRow);
+};
+
+const clearTable = () => {
+  const rows = document.querySelectorAll("#tableClient > tbody tr");
+
+  rows.forEach((row) => row.parentNode.removeChild(row)); //Apagando cada linha('tr') do elemento pai('tbody')
+};
+
+const clientList = () => {
+  const dbClient = readClient();
+  clearTable();
+  dbClient.forEach(clientRow);
+};
+
+clientList();
+
+const fillFields = (client) => {
+  document.getElementById("name").value = client.name;
+  document.getElementById("email").value = client.email;
+  document.getElementById("phone").value = client.phone;
+  document.getElementById("city").value = client.city;
+  document.getElementById("name").dataset.id = client.id;
+};
+
+const editClient = (id) => {
+  const client = readClient()[id];
+  client.id = id;
+  fillFields(client);
+  openModal();
+};
+
+const cancelClient = () => {
+  clearFields();
+  document.getElementById("modal").classList.remove("active");
+};
+
+const updateAndEdit = (ev, client) => {
+  if (ev.target.type === "button") {
+    //Retornar valor apenas do tipo 'button'
+    //Trabalhando com atributo personalizado 'dataset'
+    const [action, id] = ev.target.dataset.action.split("-");
+
+    if (action === "edit") {
+      editClient(id);
+    } else {
+      const client = readClient()[id];
+      const confirmation = confirm(
+        `Você realmente deseja excluir esse cliente? ${client.name}`
+      );
+      if (confirmation) {
+        deleteClient(id);
+        clientList();
+      } else {
+        clientList();
+      }
+    }
+  }
+};
 
 //Eventos
 btnRegister.addEventListener("click", openModal);
 btnCloseModal.addEventListener("click", closeModal);
 btnSaveClient.addEventListener("click", saveClient);
+btnCancelClient.addEventListener("click", cancelClient);
+btnUpdateClient.addEventListener("click", updateAndEdit);
