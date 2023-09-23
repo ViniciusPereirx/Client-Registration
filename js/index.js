@@ -1,14 +1,6 @@
 // "use strict";
 import { getLocalStorage, setLocalStorage } from "./db_client.js";
 
-const openModal = () =>
-  document.getElementById("modal").classList.add("active");
-
-const closeModal = () => {
-  clearFields();
-  document.getElementById("modal").classList.remove("active");
-};
-
 const btnRegister = document.getElementById("cadastrarCliente");
 const btnCloseModal = document.getElementById("modalClose");
 const btnSaveClient = document.getElementById("saveClient");
@@ -36,6 +28,7 @@ const saveClient = () => {
   const email = document.getElementById("email").value;
   const phone = document.getElementById("phone").value;
   const city = document.getElementById("city").value;
+  const state = document.getElementById("state").value;
 
   if (isValidFields()) {
     const client = {
@@ -43,6 +36,7 @@ const saveClient = () => {
       email: email,
       phone: phone,
       city: city,
+      state: state,
     };
 
     const id = document.getElementById("name").dataset.id;
@@ -95,9 +89,10 @@ const clientRow = (client, id) => {
   <td>${client.email}</td>
   <td>${client.phone}</td>
   <td>${client.city}</td>
+  <td>${client.state}</td>
   <td>
-    <button type="button" class="button green" data-action="edit-${id}">Editar</button>
-    <button type="button" class="button red" data-action="delete-${id}">Excluir</button>
+    <button type="button" class="btn btn-sm btn-outline-success" data-action="edit-${id}">Editar</button>
+    <button type="button" class="btn btn-sm btn-outline-danger" data-action="delete-${id}">Excluir</button>
   </td>`;
 
   const tableClient = document.querySelector("#tableClient > tbody");
@@ -124,6 +119,7 @@ const fillFields = (client) => {
   document.getElementById("email").value = client.email;
   document.getElementById("phone").value = client.phone;
   document.getElementById("city").value = client.city;
+  document.getElementById("state").value = client.state;
   document.getElementById("name").dataset.id = client.id;
 };
 
@@ -136,7 +132,8 @@ const editClient = (id) => {
 
 const cancelClient = () => {
   clearFields();
-  document.getElementById("modal").classList.remove("active");
+  document.getElementById("modal_id").style.opacity = "0";
+  document.getElementById("modal_id").style.zIndex = "-1";
 };
 
 const updateAndEdit = (ev, client) => {
@@ -160,6 +157,17 @@ const updateAndEdit = (ev, client) => {
       }
     }
   }
+};
+
+const openModal = () => {
+  document.getElementById("modal_id").style.opacity = "1";
+  document.getElementById("modal_id").style.zIndex = -"0";
+};
+
+const closeModal = () => {
+  document.getElementById("modal_id").style.opacity = "0";
+  document.getElementById("modal_id").style.zIndex = "-1";
+  clearFields();
 };
 
 //Eventos

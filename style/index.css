@@ -19,16 +19,8 @@ body {
   position: relative;
 }
 
-header {
-  background-color: var(--primary-color);
-  height: 70px;
-  text-align: center;
-  line-height: 70px;
-  box-shadow: 0 1px 2px var(--shadow-color);
-}
-
 .header-title {
-  color: black;
+  font-weight: bold;
   font-size: 2rem;
 }
 
@@ -50,21 +42,4 @@ footer {
   font-weight: 200;
   font-style: italic;
   padding: 20px;
-}
-
-@media (max-width: 480px) {
-  header {
-    position: fixed;
-    width: 100%;
-  }
-  .header-title {
-    font-size: 1.5rem;
-  }
-
-  main {
-    padding: 0;
-    margin: 20px 0 0 0;
-    width: 100%;
-    box-shadow: none;
-  }
 }

@@ -1,6 +1,6 @@
 # <div align="center"> Projeto Cadastro de Clientes</div>
 
-<p align="center">Projeto Cadastro de Clientes utilizando HTML, CSS e JAVASCRIPT</p>
+<p align="center">Projeto Cadastro de Clientes utilizando HTML, CSS, JAVASCRIPT e BOOTSTRAP</p>
 
 ## 🛠️ Tecnologias
 
@@ -8,6 +8,7 @@
   <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/HTML">HTML5</a></li>
   <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/CSS">CSS3</a></li>
   <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript">JAVASCRIPT</a></li>
+  <li><a href="https://getbootstrap.com/">BOOTSTRAP</a></li>
 </ul>
 
 ## ⚙️ Requisitos
