@@ -28,6 +28,6 @@ $ git clone https://github.com/ViniciusPereirx/Client-Registration.git
 
 ##
 
-Deploy AWS: http://pereiraprojects.s3-website-us-east-1.amazonaws.com
+Deploy: Em breve!
 
 ##
